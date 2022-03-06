@@ -11,7 +11,7 @@ import Table from './components/Table.vue'
 export default {
   name: 'App',
   components: {
-    Table
+    Table,
   },
 }
 </script>
@@ -25,3 +25,5 @@ export default {
   margin-top: 50px;
 }
 </style>
+
+

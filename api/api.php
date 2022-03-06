@@ -2,22 +2,21 @@
 
 //api.php
 $dbname = "testing";
-//$dbname = "ishop";
-$connect = new PDO("mysql:host=127.0.0.1:3306;dbname=$dbname", "root", "");
+$connect = new PDO("mysql:host=127.0.0.1:3306; dbname=$dbname",
+    "root",
+    "");
+
 $received_data = json_decode(file_get_contents("php://input"));
 $data = array();
 if ($received_data->action == 'fetchAll') {
-    $query = "
- SELECT * FROM tbl_sample 
- ORDER BY id DESC
- ";
+    $query = "CALL FetchAll()";
     $statement = $connect->prepare($query);
     $statement->execute();
+
     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
         $data[] = $row;
     }
     echo json_encode($data);
-//    echo json_encode($row);
 }
 if ($received_data->action == 'insert') {
     $data = array(

@@ -11,7 +11,9 @@
     "core-js": "^3.6.5",
     "html2pdf.js": "^0.10.1",
     "vue": "^3.0.0",
-    "vue-axios": "^3.4.0"
+    "vue-axios": "^3.4.0",
+    "vue-easytable": "^2.13.1",
+    "vue-html2pdf": "^1.8.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

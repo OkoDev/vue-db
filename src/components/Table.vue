@@ -34,20 +34,14 @@
             <tr v-for="row in allData" :key="row">
               <td v-for="i in row" :key="i" class="bordered">{{ i }}</td>
               <td>
-                <button type="button"
-                        name="edit"
-                        class="btn btn-primary btn-sm edit"
-                        @click="fetchData(row.id)">
-                  Edit
-                </button>
+                <Button @click="fetchData(row.id)"
+                        value="Edit"
+                        class="btn btn-primary btn-sm edit"/>
               </td>
               <td>
-                <button type="button"
-                        name="delete"
-                        class="btn btn-danger btn-sm delete"
-                        @click="deleteData(row.id)">
-                  Delete
-                </button>
+                <Button @click="deleteData(row.id)"
+                        value="delete"
+                        class="btn btn-danger btn-sm delete"/>
               </td>
             </tr>
             </tbody>
@@ -89,11 +83,13 @@
       </transition>
     </div>
   </div>
+
 </template>
 
 <script>
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
+
 
 import Button from '@/components/Button';
 
