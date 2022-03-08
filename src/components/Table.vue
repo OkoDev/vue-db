@@ -8,13 +8,17 @@
           <div class="d-grid gap-2 d-md-flex justify-content-md-center">
             <h4 class="panel-title">Sample Data</h4>
           </div>
-          <div class="d-grid gap-5 d-md-flex justify-content-md-center space-between ">
-
-            <Button @click="exportToPDF"
-                    value="html2pdf.js"/>
-            <Button @click="openModel"
-                       value="Add"
-                       class="btn btn-success btn-sm"/>
+          <div class="d-flex justify-content-around">
+            <vButton @click="exportToPDF"
+                     title="PDF Export"
+                     class="btn-outline-secondary"
+                     prependIcon="downloading"
+            />
+            <vButton @click="openModel"
+                     title="Add"
+                     class="btn-success"
+                     prependIcon="add"
+            />
           </div>
         </div>
       </div>
@@ -34,14 +38,18 @@
             <tr v-for="row in allData" :key="row">
               <td v-for="i in row" :key="i" class="bordered">{{ i }}</td>
               <td>
-                <Button @click="fetchData(row.id)"
-                        value="Edit"
-                        class="btn btn-primary btn-sm edit"/>
+                <vButton @click="fetchData(row.id)"
+                         title="Edit"
+                         class="btn-outline-primary edit"
+                         prependIcon="edit"
+                />
               </td>
               <td>
-                <Button @click="deleteData(row.id)"
-                        value="delete"
-                        class="btn btn-danger btn-sm delete"/>
+                <vButton @click="deleteData(row.id)"
+                         title="Delete"
+                         class="btn-outline-danger delete"
+                         prependIcon="delete"
+                />
               </td>
             </tr>
             </tbody>
@@ -56,19 +64,18 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" @click="myModel=false">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
                   <h4 class="modal-title">{{ dynamicTitle }}</h4>
+                  <vButton @click="myModel=false"
+                           class="btn-close"/>
                 </div>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label>Enter First Name</label>
-                    <input type="text" class="form-control" v-model="first_name"/>
+                  <div class="form-group mb-3">
+                    <label>First Name</label>
+                      <input type="text" class="form-control" placeholder="..." v-model="first_name"/>
                   </div>
-                  <div class="form-group">
-                    <label>Enter Last Name</label>
-                    <input type="text" class="form-control" v-model="last_name"/>
+                  <div class="form-group mb-3">
+                    <label>Last Name</label>
+                      <input type="text" class="form-control" placeholder="..." v-model="last_name"/>
                   </div>
                   <br/>
                   <div align="center">
@@ -87,17 +94,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-import html2pdf from 'html2pdf.js';
-
-
-import Button from '@/components/Button';
-
+import axios from 'axios'
+import html2pdf from 'html2pdf.js'
+import vButton from '@/components/v-button'
 
 export default {
   name: 'Table',
   components: {
-    Button,
+    vButton
   },
   data: () => ({
     allData: '',
@@ -137,7 +141,7 @@ export default {
             this.first_name = '';
             this.last_name = '';
             alert(response.data.message);
-          });
+          })
         }
         if (this.actionButton === 'Update') {
           axios.post('./api/api.php', {
@@ -182,14 +186,14 @@ export default {
         });
       }
     },
-    exportToPDF () {
+    exportToPDF() {
       html2pdf(this.$refs.document, {
         margin: 1,
         filename: 'document.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { dpi: 300, letterRendering: true },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        image: {type: 'jpeg', quality: 1},
+        html2canvas: {dpi: 300, letterRendering: true},
+        jsPDF: {unit: 'in', format: 'a4', orientation: 'portrait'},
+        pagebreak: {mode: ['avoid-all', 'css', 'legacy']}
       })
     },
   },
@@ -200,7 +204,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss">
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -218,8 +222,13 @@ export default {
   vertical-align: middle;
 }
 
-th {
-  /*text-align: center;*/
+.table {
+  text-align: center;
+
+  .btn {
+    margin: 0 auto
+  }
+
 }
 
 </style>
